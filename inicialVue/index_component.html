@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Basico Platzi</title>
+</head>
+<body>
+    <div id="app">
+
+        <h1> {{nom}}</h1>
+        
+
+        <form @submit.prevent="submit" action="" method="get">
+            <h2>¿Cuáles son tus cursos favoritos?</h2>
+
+            <template v-for="curso in cursos">
+                <curso :curso="curso" @cambiar="selectCurso"></curso>  
+            </template>
+
+
+      <button type="submit">Enviar</button>
+          </form>
+
+
+          <other name=" NO se" dir="mamaaaaa">   </other>
+
+    </div>
+</body>
+
+
+<script src="../lib/vue.js"></script>
+
+<script>
+
+
+    /*
+        EL componente basico se realiza asi,  props  recibe propiedades
+
+
+    */
+    Vue.component('curso', {
+        props:['curso'],
+
+        template:`
+            <div>
+            <input type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value" @change="cambiar">
+            <label v-bind:for="curso.value">{{ curso.nombre }}</label>
+            </div>
+        `,
+
+        methods:{
+
+            cambiar: function(event){
+
+                this.$emit('cambiar', this.curso.value, event.target.checked);
+            }
+        }
+
+    });
+
+
+
+    Vue.component( 'other', {
+
+    props:['name', 'dir'],
+
+    template:`
+        <div>
+        <h1>  {{name}}  </h1>
+   
+        <input type="text" id="name" name="name"  >
+        <button @click='process'> valor </button>
+        </div>
+    `,
+
+methods:{
+
+process: function(){
+
+    alert('click aqui');
+}
+
+}
+
+    });
+
+
+
+    let app = new Vue(
+        {
+            el:'#app',
+            data:{
+                nom:'Marcelo',
+                view : true,
+                cursos: [
+                        { nombre: 'Curso de Introducción a Vue.js', value: 'vue' },
+                        { nombre: 'Curso de SEO', value: 'seo' },
+                        { nombre: 'Curso React y Redux', value: 'react' },
+                        { nombre: 'Curso de Growth Marketing', value: 'growth' }
+                ],
+                cursosSeleccionados:[]
+            },
+
+
+            methods:{
+
+                submit: function () {
+                    console.log('Se ejecuta el método submit')
+                    console.log(this.cursosSeleccionados)
+                },
+                setear(){
+
+
+                    alert('esto tambien funciona asi....');
+                },
+
+                selectCurso: function(curso, checked){
+                    if (checked) {
+                        this.cursosSeleccionados.push(curso)
+                    } else {
+                        let index = this.cursosSeleccionados.indexOf(curso)
+                        this.cursosSeleccionados.splice(index, 1)
+                    }
+
+
+
+                }
+
+
+            }
+
+        }
+
+    );
+</script>
+</html>
