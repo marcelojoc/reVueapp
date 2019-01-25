@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Curso Vue.js</title>
+</head>
+<body>
+  <div id="app">
+    <form @submit.prevent="submit" action="" method="get">
+      <h2>¿Cuáles son tus cursos favoritos?</h2>
+
+      <template v-for="curso in cursos">
+        <input v-model="cursosSeleccionados" type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value">
+        <label v-bind:for="curso.value">{{ curso.nombre }}</label>  
+      </template>
+
+
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+</body>
+<script src="../lib/vue.js"></script>
+
+<script>
+
+    let app = new Vue(
+        {
+            el:'#app',
+            data:{
+                nom: 'Hola marcelo',
+                url: 'http://www.google.com',
+                button: 'Enlace a Google',
+                view : true,
+                cursos: [
+                        { nombre: 'Curso de Introducción a Vue.js', value: 'vue' },
+                        { nombre: 'Curso de SEO', value: 'seo' },
+                        { nombre: 'Curso React y Redux', value: 'react' },
+                        { nombre: 'Curso de Growth Marketing', value: 'growth' }
+                        ],
+                cursosSeleccionados: []
+            },
+
+
+            methods:{
+
+                submit : function(){
+
+                    console.log('prueba de submit');
+                },
+
+                setear(){
+
+
+                    alert('esto tambien funciona asi....');
+                }
+
+
+            }
+
+        }
+
+    );
+</script>
+</html>
