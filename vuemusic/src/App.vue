@@ -4,13 +4,14 @@
     img(src='./assets/logo.png')
     h1 PlatziMusic
     ul
-      li(v-for="artist in artists") {{ artist.name }}
+      artist(v-for="artist in artists" v-bind:artist = 'artist')
 
-      h1 
+      h1 funciona???
 </template>
 
 <script>
 
+import Artist from './components/Artist'  // importo el componente  nuevo Artist
 import getArtists from './api'  // importo la clase index  con el metodo
 
   export default {
@@ -20,6 +21,12 @@ import getArtists from './api'  // importo la clase index  con el metodo
           artists: []
         }
       },
+
+      components: {
+        Artist : Artist
+
+      },
+
       mounted: function () {
         const self = this
         getArtists()
