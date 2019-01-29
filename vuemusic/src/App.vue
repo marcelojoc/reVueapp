@@ -5,31 +5,28 @@
     h1 PlatziMusic
     ul
       li(v-for="artist in artists") {{ artist.name }}
+
+      h1 
 </template>
 
 <script>
+
+import getArtists from './api'  // importo la clase index  con el metodo
+
   export default {
-    name: 'app',
-    data () {
-      return {
-        artists: [
-
-          {name:'asasasasas'},
-          {name:'asasasaerrrrrrrrrrrrrsas'},
-          {name:'asasasaerrrrrrrrrrrrrsas'},
-          {name:'asasasaerrrrrrrrrrrrrsas'},
-          {name:'asasasaerrrrrrrrrrrrrsas'},
-          {name:'asasasaerrrrrrrrrrrrrsas'},
-          {name:'asasasaerrrrrrrrrrrrrsas'},
-          {name:'aaaaaaaaaaaaaaaaa'},
-          {name:'asasasasas'},
-          {name:'bbbbbbbbbbbbbbbbbb'},
-
-
-
-        ]
+      name: 'app',
+      data () {
+        return {
+          artists: []
+        }
+      },
+      mounted: function () {
+        const self = this
+        getArtists()
+          .then(function (artists) {
+            self.artists = artists
+          })
       }
-    }
   }
 </script>
 
