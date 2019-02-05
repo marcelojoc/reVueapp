@@ -1,12 +1,12 @@
 <template lang="pug">
-
   #app
     img(src='./assets/logo.png')
     h1 PlatziMusic
-    ul
-      artist(v-for="artist in artists" v-bind:artist = 'artist')
+    select(v-model="selectedCountry")
+      option(v-for="country in countries" v-bind:value="country.value") {{ country.name }}
 
-      h1 funciona???
+    ul
+      artist(v-for="artist in artists" v-bind:artist="artist" v-bind:key="artist.mbid")
 </template>
 
 <script>
@@ -18,7 +18,13 @@ import getArtists from './api'  // importo la clase index  con el metodo
       name: 'app',
       data () {
         return {
-          artists: []
+            artists: [],
+            countries: [
+              { name: 'Argentina', value: 'argentina' },
+              { name: 'Colombia', value: 'colombia' },
+              { name: 'España', value: 'spain' },
+            ],
+            selectedCountry: 'argentina'
         }
       },
 
@@ -27,34 +33,47 @@ import getArtists from './api'  // importo la clase index  con el metodo
 
       },
 
-      mounted: function () {
-        const self = this
-        getArtists()
-          .then(function (artists) {
-            self.artists = artists
-          })
+      methods:{
+
+        refreshArtists: function(){
+              const self = this
+              getArtists(this.selectedCountry)
+                .then(function (artists) {
+                self.artists = artists
+                })
+        }
+
+      },
+      mounted() {
+        this.refreshArtists()
+      },
+      watch: {
+        selectedCountry() {
+          this.refreshArtists()
+        }
+
       }
   }
 </script>
 
 <style lang="stylus">
 
-    #app 
+    #app
       font-family 'Avenir', Helvetica, Arial, sans-serif
       -webkit-font-smoothing antialiased
       -moz-osx-font-smoothing grayscale
       text-align center
       color #2c3e20
       margin-top 60px
-    h1, h2 
+    h1, h2
       font-weight normal
-    ul 
+    ul
       list-style-type none
       padding 0
-    li 
+    li
       display inline-block
       margin 0 15px
-    a 
+    a
       color red
-      
+
 </style>
