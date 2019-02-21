@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Basico Platzi  200.32.49.246:27017</title>
+</head>
+<body>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+
+
+<script>
+
+const API_URL = 'https://swapi.co/api/';
+
+const PEOPLE_ID ='people/1';
+
+$.get(`${API_URL}${PEOPLE_ID}`, {crossDomain: true}, function( data ){
+
+    console.log(arguments);
+
+    console.log(`HOLA MI NOMBRE ES ${data.name}`);
+
+    
+
+});
+
+
+
+
+</script>
+</html>
