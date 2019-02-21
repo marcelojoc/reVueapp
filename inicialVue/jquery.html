@@ -19,19 +19,39 @@
 
 const API_URL = 'https://swapi.co/api/';
 
-const PEOPLE_ID ='people/1';
+const PEOPLE_ID ='people/:id';
 
-$.get(`${API_URL}${PEOPLE_ID}`, {crossDomain: true}, function( data ){
+const opts = {crossDomain: true};
 
-    console.log(arguments);
+// $.get(`${API_URL}${PEOPLE_ID}`, {crossDomain: true}, function( data ){
 
-    console.log(`HOLA MI NOMBRE ES ${data.name}`);
+//     console.log(arguments);
+
+//     console.log(`HOLA MI NOMBRE ES ${data.name}`);
 
     
 
-});
+// });
+
+// Esta funcion hace algo con la paesona que se envia por parametro
+function peopleSay(people){
+
+    console.log(arguments);
+
+    console.log(`HOLA MI NOMBRE ES ${people.name}`);
+}
 
 
+function obtenerPersonaje(id){
+
+    let url = API_URL + PEOPLE_ID.replace(":id", id);
+
+    $.get(url, opts, peopleSay)
+
+}
+
+
+obtenerPersonaje(50);
 
 
 </script>
