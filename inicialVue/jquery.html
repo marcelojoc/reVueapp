@@ -42,11 +42,18 @@ function peopleSay(people){
 }
 
 
-function obtenerPersonaje(id){
+function obtenerPersonaje(id, callback){
 
     let url = API_URL + PEOPLE_ID.replace(":id", id);
 
-    $.get(url, opts, peopleSay)
+    $.get(url, opts, peopleSay).fail(function(){
+
+        console.log('ocurrio un error en la peticion');
+    })
+
+    if(callback){
+        callback() 
+    }
 
 }
 
