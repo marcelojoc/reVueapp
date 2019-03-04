@@ -42,23 +42,49 @@ function peopleSay(people){
 }
 
 
-function obtenerPersonaje(id, callback){
+// function obtenerPersonaje(id, callback){
 
-    let url = API_URL + PEOPLE_ID.replace(":id", id);
+//     let url = API_URL + PEOPLE_ID.replace(":id", id);
 
-    $.get(url, opts, peopleSay).fail(function(){
+//     $.get(url, opts, peopleSay).fail(function(){
 
-        console.log('ocurrio un error en la peticion');
-    })
+//         console.log('ocurrio un error en la peticion');
+//     })
 
-    if(callback){
-        callback() 
-    }
+//     if(callback){
+//         callback() 
+//     }
+
+// }
+
+
+
+function obtenerPersonaje(id){
+
+    return  new Promise( (resolve, reject)=>{
+
+        let url = API_URL + PEOPLE_ID.replace(":id", id);
+        $
+            .get(url, opts, function(data){
+                resolve(data)
+            })
+            .fail(function(){
+                reject(id)
+            })
+        
+    } );
+
 
 }
 
+obtenerPersonaje(17)
 
-obtenerPersonaje(50);
+    .then(function(personaje){
+        console.log(`HOLA MI NOMBRE ES ${personaje.name}`);
+    })
+    .catch(function(id){
+        console.log(`HAY UN ERRO CON  ${id}`);
+    })
 
 
 </script>
